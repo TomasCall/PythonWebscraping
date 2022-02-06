@@ -1,6 +1,6 @@
-from asyncore import write
 import requests
 from bs4 import BeautifulSoup
+
 
 interests = ["orosz","covid","koronavírus","covid-19","péter","mzp","ellenzék","vírus","fertőzött"]
 
@@ -40,11 +40,6 @@ def main():
     print("</div>",file=file)
     print("</body>",file=file)
     print("</html>",file=file)
-    
-    #print("HVG")
-    #scraper("https://hvg.hu")
-    #print("444")
-    #scraper("https://444.hu")
 
 
 if __name__ == "__main__":
