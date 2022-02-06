@@ -1,4 +1,6 @@
+from distutils.log import info
 import requests
+import csv
 from bs4 import BeautifulSoup
 
 ########################################################
@@ -76,6 +78,54 @@ def fifth_excersize():
     #print()
 
 
+def sixth_excersize():
+    page = requests.get("https://codedamn-classrooms.github.io/webscraper-python-codedamn-classroom-website/")
+    soup = BeautifulSoup(page.content, 'html.parser')
+    links = soup.select('a')
+    links_with_data = []
+    for a in links:
+        data = {
+            "href":a.get('href').strip(),
+            "text":a.text.strip()
+        }
+        links_with_data.append(data)
+    return links_with_data
+
+
+def seventh_excersize():
+    # Make a request
+    page = requests.get(
+        "https://codedamn-classrooms.github.io/webscraper-python-codedamn-classroom-website/")
+    soup = BeautifulSoup(page.content, 'html.parser')
+    
+    # Create top_items as empty list
+    all_products = []
+    
+    # Extract and store in top_items according to instructions on the left
+    products = soup.select('div.thumbnail')
+    for product in products:
+        name = product.select('h4 > a')[0].text.strip()
+        description = product.select('p.description')[0].text.strip()
+        price = product.select('h4.price')[0].text.strip()
+        reviews = product.select('div.ratings')[0].text.strip()
+        image = product.select('img')[0].get('src')
+    
+        all_products.append({
+            "name": name,
+            "description": description,
+            "price": price,
+            "reviews": reviews,
+            "image": image
+        })
+    
+    
+    keys = all_products[0].keys()
+    
+    with open('products.csv', 'w', newline='') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(all_products)
+
 
 ########################################################
 
@@ -141,6 +191,28 @@ def sixth_example():
     print(image_data)
 
 
+def seventh_example():
+    # Make a request
+    page = requests.get(
+        "https://codedamn-classrooms.github.io/webscraper-python-codedamn-classroom-website/")
+    soup = BeautifulSoup(page.content, 'html.parser')
+
+    all_products = []
+
+    products = soup.select('div.thumbnail')
+    for product in products:
+        # TODO: Work
+        print("Work on product here")
+
+
+    keys = all_products[0].keys()
+
+    with open('products.csv', 'w', newline='') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(all_products)
+
+
 ########################################################
 def main():
     #first_example()
@@ -151,7 +223,8 @@ def main():
     #third_excersize()
     #fourth_example()
     #fourth_excersize()
-    fifth_excersize()
+    #fifth_excersize()
+    print(sixth_excersize())
 
 
 if __name__=="__main__":
