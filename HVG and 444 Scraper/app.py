@@ -33,13 +33,21 @@ def main():
     print("</head>",file=file)
     print("<body>",file=file)
     print("<div class='wrapper'>",file=file)
+    
+    print("HVG.hu adatok átnézése")
+    
     print("<h1>HVG</h1>",file=file)
     scraper("https://hvg.hu",file)
     print("<h1>444</h1>",file=file)
     scraper("https://444.hu",file)
+
+    print("444.hu adatok átnézése")
+    
     print("</div>",file=file)
     print("</body>",file=file)
     print("</html>",file=file)
+
+    print("Befejezve!")
 
 
 if __name__ == "__main__":
