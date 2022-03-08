@@ -26,3 +26,20 @@ class Depression:
 
     def liters_of_disel(self):
         return self.bank_account_balance/self.get_price_disel()
+
+
+    def price_of_mort_subite(self):
+        page = requests.get("https://www.arukereso.hu/sor-c1060/mort-subite/0-25l-pal-p505000558/")
+        soup = BeautifulSoup(page.content, 'html.parser')
+        my_span = soup.select("span")
+        my_span = set(my_span)
+        for item in my_span:
+            if "Ft" in item.text.strip():
+                return int(item.text.strip().split()[0])
+
+
+    def liters_of_mort_subite(self):
+        return (self.bank_account_balance/self.price_of_mort_subite())/4
+
+
+
