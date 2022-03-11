@@ -15,11 +15,11 @@ def scraper(url,file):
         for interest in interests:
             if interest in tmp and tmp not in lst:
                 if "hvg" in url:
-                    print(f'<a href="{url}{item.get("href")}">{item.text.strip()}</a>',file=file)
+                    print(f'<li><a href="{url}{item.get("href")}">{item.text.strip()}</a></li>',file=file)
                     lst.append(tmp)
                 else:
                     if "slug" not in item.get("href"):
-                        print(f'<a href="{item.get("href")}">{item.text.strip()}</a>',file=file)
+                        print(f'<li><a href="{item.get("href")}">{item.text.strip()}</a></li>',file=file)
                         lst.append(tmp)
 
 
@@ -37,10 +37,13 @@ def main():
     print("HVG.hu adatok átnézése")
     
     print("<h1>HVG</h1>",file=file)
+    print("<ul>",file=file)
     scraper("https://hvg.hu",file)
+    print("</ul>",file=file)
     print("<h1>444</h1>",file=file)
+    print("<ul>",file=file)
     scraper("https://444.hu",file)
-
+    print("</ul>",file=file)
     print("444.hu adatok átnézése")
     
     print("</div>",file=file)
